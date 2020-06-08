@@ -90,7 +90,7 @@ const List = styled.div`
   transition: height .3s;
   position:absolute;
   left: 0;
-  top: 3.5rem;
+  top: 3rem;
   border-radius: .5rem;
   box-shadow: 2px 3px 13px -6px rgba(0,0,0,0.75);;
   background-color: white;

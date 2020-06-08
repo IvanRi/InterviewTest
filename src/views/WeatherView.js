@@ -9,6 +9,9 @@ const WeatherView = () => {
     <div className='header'>
       <h2>Clima actual</h2>
       <ContentCard className='drop-container'>
+        <div className='drop-label'>
+          Ubiación:
+        </div>
         <Dropdown
           initialValue="Ordenar por"
           handleChange={item => console.log('item', item)}
@@ -48,7 +51,13 @@ const ViewLayout = styled.div`
   }
 
   .drop-container{
-    padding:.5rem;
+    padding: .2rem .5rem;
+    display:flex;
+    align-items:center;
+    .drop-label{
+      margin-right:.5rem;
+      font-weight:bold;
+    }
   }
 `;
 

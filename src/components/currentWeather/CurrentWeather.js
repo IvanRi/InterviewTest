@@ -20,7 +20,7 @@ const CurrentWeather = props => {
       <div><WiThermometer />{weatherData ? weatherData.max : 0}°C</div>
       <div><WiThermometerExterior />{weatherData ? weatherData.min : 0}°C</div>
       <div><WiStrongWind />{weatherData ? weatherData.wind_speed : 0} Km/h</div>
-      <div><WiHumidity />{weatherData ? weatherData.humidity : 0}°C</div>
+      <div><WiHumidity />{weatherData ? weatherData.humidity : 0}%</div>
     </div>
   </ContentLayout >
 };
@@ -55,6 +55,10 @@ const ContentLayout = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    div{
+      display:flex;
+      align-items:center;
+    }
     svg{
       margin-right:1rem;
     }

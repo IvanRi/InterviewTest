@@ -114,7 +114,7 @@ const List = styled.div`
     display: flex;
     align-items: center;
       &:hover{
-      background-color: rgb(65,130,252);
+      background-color: #F2542D;
       color: white;
     }
   }

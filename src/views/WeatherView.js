@@ -6,6 +6,7 @@ import { getWeatherData } from '../apiRequest/WeatherData'
 import ContentCard from '../components/common/ContentCard';
 import Dropdown from '../components/common/Dropdown';
 import CurrentWeather from '../components/currentWeather/CurrentWeather';
+import ExtendedForecast from '../components/extendedForecast/ExtendedForecast';
 //utils
 import { formatedTime } from '../utils/timeHandlers'
 
@@ -31,7 +32,6 @@ const WeatherView = () => {
   };
 
   const formatCurrentWeatherData = data => {
-    //TODO: falta agregar mas datos para completar el componente
     const { dt, humidity, temp, wind_speed, weather } = data.current
     const { max, min } = data.daily[0].temp
     return {
@@ -50,8 +50,15 @@ const WeatherView = () => {
     //cut the obsolete elements
     const dailyData = [...data.daily].slice(1, 6)
     const formatedData = dailyData.map((item, i) => {
-      const { dt, humidity, temp, wind_speed, feels_like } = item
-      return { date: formatedTime(dt), humidity, temp, wind_speed, feels_like }
+      const { dt, humidity, temp, wind_speed, weather } = item
+      return {
+        date: formatedTime(dt),
+        humidity,
+        min: temp.min,
+        max: temp.max,
+        wind_speed,
+        icon: weather[0].icon
+      }
     })
     return formatedData
   }
@@ -77,7 +84,7 @@ const WeatherView = () => {
       <h2>Pronostico extendido</h2>
     </div>
     <ContentCard isLoading={isLoading}>
-      CLIMA EXTENDIDO
+      <ExtendedForecast weatherData={locationWeather && locationWeather.extended} />
     </ContentCard>
   </ViewLayout>
 };

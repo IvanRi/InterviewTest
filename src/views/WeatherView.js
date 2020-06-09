@@ -5,24 +5,23 @@ import { getWeatherData } from '../apiRequest/WeatherData'
 //components
 import ContentCard from '../components/common/ContentCard';
 import Dropdown from '../components/common/Dropdown';
+import CurrentWeather from '../components/currentWeather/CurrentWeather';
 //utils
 import { formatedTime } from '../utils/timeHandlers'
 
 const WeatherView = () => {
   const [currentLocationWeather, setCurrentLocationWeather] = useState(null)
   const [extendedForecast, setExtendedForecast] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     _getCurrentWeatherData()
   }, [])
 
-  useEffect(() => {
-    console.log("current", currentLocationWeather)
-    console.log("extended", extendedForecast)
-  }, [extendedForecast])
-
   const _getCurrentWeatherData = async () => {
+    setIsLoading(true)
     const res = await getWeatherData()
+    setIsLoading(false)
     const formatedCurrentData = formatCurrentWeatherData(res)
     const formatedExtendedData = formatExtendedWeatherData(res)
     setCurrentLocationWeather(formatedCurrentData)
@@ -53,7 +52,7 @@ const WeatherView = () => {
   return <ViewLayout>
     <div className='header'>
       <h2>Clima actual</h2>
-      <ContentCard className='drop-container'>
+      <ContentCard loading={isLoading} className='drop-container'>
         <div className='drop-label'>
           Ubiación:
         </div>
@@ -64,13 +63,13 @@ const WeatherView = () => {
         />
       </ContentCard>
     </div>
-    <ContentCard>
-      CLIMA ACTUAL
+    <ContentCard loading={isLoading}>
+      <CurrentWeather />
     </ContentCard>
     <div className='header'>
       <h2>Pronostico extendido</h2>
     </div>
-    <ContentCard>
+    <ContentCard loading={isLoading}>
       CLIMA EXTENDIDO
     </ContentCard>
   </ViewLayout>

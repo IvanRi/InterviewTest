@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CercleLoader = () => {
   return <ContentLayout>
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div className="lds-ripple"><div></div><div></div></div>
   </ContentLayout>
 };
 

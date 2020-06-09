@@ -1,10 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+//get data endpoints
+import { getWeatherData } from '../apiRequest/WeatherData'
 //components
 import ContentCard from '../components/common/ContentCard';
 import Dropdown from '../components/common/Dropdown';
+//utils
+import { formatedTime } from '../utils/timeHandlers'
 
 const WeatherView = () => {
+  const [currentLocationWeather, setCurrentLocationWeather] = useState(null)
+  const [extendedForecast, setExtendedForecast] = useState(null)
+
+  useEffect(() => {
+    _getCurrentWeatherData()
+  }, [])
+
+  useEffect(() => {
+    console.log("current", currentLocationWeather)
+    console.log("extended", extendedForecast)
+  }, [extendedForecast])
+
+  const _getCurrentWeatherData = async () => {
+    const res = await getWeatherData()
+    const formatedCurrentData = formatCurrentWeatherData(res)
+    const formatedExtendedData = formatExtendedWeatherData(res)
+    setCurrentLocationWeather(formatedCurrentData)
+    setExtendedForecast(formatedExtendedData)
+  }
+
+  const formatCurrentWeatherData = data => {
+    const { dt, humidity, temp, wind_speed, feels_like } = data.current
+    return {
+      date: formatedTime(dt),
+      humidity,
+      temp,
+      wind_speed,
+      feels_like
+    }
+  }
+
+  const formatExtendedWeatherData = data => {
+    //cut the obsolete elements
+    const dailyData = [...data.daily].slice(1, 6)
+    const formatedData = dailyData.map((item, i) => {
+      const { dt, humidity, temp, wind_speed, feels_like } = item
+      return { date: formatedTime(dt), humidity, temp, wind_speed, feels_like }
+    })
+    return formatedData
+  }
+
   return <ViewLayout>
     <div className='header'>
       <h2>Clima actual</h2>

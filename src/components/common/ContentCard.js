@@ -23,7 +23,6 @@ const ContentLayout = styled.div`
   padding:1rem;
   box-sizing:border-box;
   background-color:white;
-  overflow:hidden;
 
   .is-loading{
     background-color:#80808040;
@@ -36,6 +35,8 @@ const ContentLayout = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: .5rem;
   }
 `;
 

@@ -54,7 +54,7 @@ const WeatherView = () => {
       <h2>Clima actual</h2>
       <ContentCard isLoading={isLoading} className='drop-container'>
         <div className='drop-label'>
-          Ubiación:
+          Ubicación:
         </div>
         <Dropdown
           initialValue="Ordenar por"
@@ -64,7 +64,7 @@ const WeatherView = () => {
       </ContentCard>
     </div>
     <ContentCard isLoading={isLoading}>
-      <CurrentWeather />
+      <CurrentWeather weatherData={currentLocationWeather} />
     </ContentCard>
     <div className='header'>
       <h2>Pronostico extendido</h2>

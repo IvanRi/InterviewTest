@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types'
-//components
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+//icons
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
-const Dropdown = ({ style, items, initialValue, handleChange }) => {
+const Dropdown = props => {
+  const { items, initialValue, handleChange } = props
+
+  //estados manejadores de display
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(null);
 
@@ -25,7 +28,7 @@ const Dropdown = ({ style, items, initialValue, handleChange }) => {
     setShowList(false)
   };
 
-  return <ContentLayout items={items} style={style} showList={showList} >
+  return <ContentLayout items={items} showList={showList} >
     <div className='controller' onClick={() => setShowList(!showList)}>
       <div className='label-container'>
         {selected || initialValue}
@@ -60,6 +63,12 @@ const Dropdown = ({ style, items, initialValue, handleChange }) => {
       }
     </List>
   </ContentLayout>
+};
+
+Dropdown.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string),
+  initialValue: PropTypes.string,
+  handleChange: PropTypes.func
 };
 
 const ContentLayout = styled.div`

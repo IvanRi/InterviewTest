@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 //components
 import CercleLoader from './CercleLoader'
 
 const ContentCard = props => {
-  const { loading } = props
+  const { isLoading } = props
   return <ContentLayout {...props}>
-    {loading && <div className='is-loading'><CercleLoader /></div>}
+    {isLoading && <div className='is-loading'><CercleLoader /></div>}
     {props.children}
   </ContentLayout>
 };
+
+ContentCard.propTypes = {
+  isLoading: PropTypes.bool
+}
 
 const ContentLayout = styled.div`
   position:relative;

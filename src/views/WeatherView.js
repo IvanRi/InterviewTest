@@ -10,32 +10,39 @@ import CurrentWeather from '../components/currentWeather/CurrentWeather';
 import { formatedTime } from '../utils/timeHandlers'
 
 const WeatherView = () => {
-  const [currentLocationWeather, setCurrentLocationWeather] = useState(null)
-  const [extendedForecast, setExtendedForecast] = useState(null)
+  const [locationWeather, setLocationWeather] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     _getCurrentWeatherData()
-  }, [])
+  }, []);
 
   const _getCurrentWeatherData = async () => {
     setIsLoading(true)
     const res = await getWeatherData()
     setIsLoading(false)
-    const formatedCurrentData = formatCurrentWeatherData(res)
-    const formatedExtendedData = formatExtendedWeatherData(res)
-    setCurrentLocationWeather(formatedCurrentData)
-    setExtendedForecast(formatedExtendedData)
-  }
+    //formateo y guardo la informacion en su estado correspondiente
+    const formatedCurrentData = {
+      current: formatCurrentWeatherData(res),
+      extended: formatExtendedWeatherData(res)
+    }
+    console.log('res', res)
+    setLocationWeather(formatedCurrentData)
+  };
 
   const formatCurrentWeatherData = data => {
-    const { dt, humidity, temp, wind_speed, feels_like } = data.current
+    //TODO: falta agregar mas datos para completar el componente
+    const { dt, humidity, temp, wind_speed, weather } = data.current
+    const { max, min } = data.daily[0].temp
     return {
       date: formatedTime(dt),
       humidity,
       temp,
       wind_speed,
-      feels_like
+      icon: weather[0].icon,
+      description: weather[0].description,
+      max,
+      min
     }
   }
 
@@ -63,8 +70,8 @@ const WeatherView = () => {
         />
       </ContentCard>
     </div>
-    <ContentCard isLoading={isLoading}>
-      <CurrentWeather weatherData={currentLocationWeather} />
+    <ContentCard isLoading={isLoading} className='current-styles'>
+      <CurrentWeather weatherData={locationWeather && locationWeather.current} />
     </ContentCard>
     <div className='header'>
       <h2>Pronostico extendido</h2>
@@ -92,6 +99,10 @@ const ViewLayout = styled.div`
       margin:1rem 0;
 
     }
+  }
+
+  .current-styles{
+    height: 15rem;
   }
 
   .drop-container{

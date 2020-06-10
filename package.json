@@ -2,6 +2,10 @@
   "name": "test",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "13.11.0",
+    "npm": "6.13.7"
+  },
   "dependencies": {
     "chart.js": "^2.9.3",
     "moment": "^2.26.0",

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 //icons
 import { WiUmbrella, WiThermometer, WiThermometerExterior, WiStrongWind, WiHumidity } from 'react-icons/wi'
+//components
+import LineChart from '../common/LineChart'
 
 const CurrentWeather = props => {
   const { weatherData } = props
@@ -22,12 +24,20 @@ const CurrentWeather = props => {
       <div><WiStrongWind />{weatherData ? weatherData.wind_speed : 0} Km/h</div>
       <div><WiHumidity />{weatherData ? weatherData.humidity : 0}%</div>
     </div>
+    <div className='graph-layout'>
+      <LineChart data={weatherData && weatherData.graphData} />
+    </div>
   </ContentLayout >
 };
 
 const ContentLayout = styled.div`
   height:100%;
   display:flex;
+  align-items: center;
+
+  .graph-layout{
+    width:50%;
+  }
 
   .current-container{
     color:#F2542D;
@@ -36,8 +46,8 @@ const ContentLayout = styled.div`
     flex-direction:column;
     justify-content:space-between;
     align-items:center;
-    width:25%;
-    height:100%;
+    width:30%;
+    height:18rem;
   }
 
   .current-temp{
@@ -50,11 +60,12 @@ const ContentLayout = styled.div`
   }
 
   .info-list{
-    width: 25%;
+    width: 20%;
+    height:18rem;
     font-size: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     div{
       display:flex;
       align-items:center;

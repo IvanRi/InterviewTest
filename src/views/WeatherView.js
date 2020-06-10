@@ -8,7 +8,7 @@ import Dropdown from '../components/common/Dropdown';
 import CurrentWeather from '../components/currentWeather/CurrentWeather';
 import ExtendedForecast from '../components/extendedForecast/ExtendedForecast';
 //utils
-import { formatedTime } from '../utils/timeHandlers'
+import { formatedTime, formatedHourlyGraphTime } from '../utils/timeHandlers'
 
 const WeatherView = () => {
   const [locationWeather, setLocationWeather] = useState(null)
@@ -27,7 +27,6 @@ const WeatherView = () => {
       current: formatCurrentWeatherData(res),
       extended: formatExtendedWeatherData(res)
     }
-    console.log('res', res)
     setLocationWeather(formatedCurrentData)
   };
 
@@ -42,8 +41,15 @@ const WeatherView = () => {
       icon: weather[0].icon,
       description: weather[0].description,
       max,
-      min
+      min,
+      graphData: formatGraphData(data.hourly.slice(0, 24))
     }
+  }
+
+  const formatGraphData = data => {
+    const labels = data.map(item => formatedHourlyGraphTime(item.dt))
+    const dataset = data.map(item => item.temp)
+    return { labels, dataset }
   }
 
   const formatExtendedWeatherData = data => {
@@ -109,7 +115,7 @@ const ViewLayout = styled.div`
   }
 
   .current-styles{
-    height: 15rem;
+    min-height: 17rem;
   }
 
   .drop-container{

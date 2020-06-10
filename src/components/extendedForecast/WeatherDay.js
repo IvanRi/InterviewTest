@@ -5,7 +5,6 @@ import { WiThermometer, WiThermometerExterior, WiStrongWind, WiHumidity } from '
 
 const WeatherDay = props => {
   const { icon, humidity, max, min, wind_speed, date } = props
-  console.log("props", props)
   return <ContentLayout>
     <div className='date-layout'>{date || '-'}</div>
     <div className='data-container'>

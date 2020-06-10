@@ -23,8 +23,8 @@ const Dropdown = props => {
   };
 
   const _handleSelect = item => {
-    handleChange(item)
-    setSelected(item)
+    handleChange(item.value)
+    setSelected(item.label)
     setShowList(false)
   };
 
@@ -57,7 +57,7 @@ const Dropdown = props => {
           className='item'
           onClick={() => _handleSelect(item)}
         >
-          {item}
+          {item.label}
         </div>
         )
       }
@@ -66,7 +66,9 @@ const Dropdown = props => {
 };
 
 Dropdown.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.arrayOf(
+    PropTypes.object
+  ),
   initialValue: PropTypes.string,
   handleChange: PropTypes.func
 };

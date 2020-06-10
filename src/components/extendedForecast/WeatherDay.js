@@ -24,7 +24,7 @@ const WeatherDay = props => {
 };
 
 const ContentLayout = styled.div`
-  width:13rem;
+  min-width:13rem;
   
   .img-layout{
     flex:1;

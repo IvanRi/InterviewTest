@@ -7,6 +7,7 @@ import LineChart from '../common/LineChart'
 
 const CurrentWeather = props => {
   const { weatherData } = props
+
   return <ContentLayout>
     <div className='current-container'>
       <div className='current-date'>
@@ -34,9 +35,11 @@ const ContentLayout = styled.div`
   height:100%;
   display:flex;
   align-items: center;
+  flex-wrap:wrap;
+  justify-content: center;
 
   .graph-layout{
-    width:50%;
+    min-width:50%;
   }
 
   .current-container{
@@ -46,7 +49,7 @@ const ContentLayout = styled.div`
     flex-direction:column;
     justify-content:space-between;
     align-items:center;
-    width:30%;
+    min-width:30%;
     height:18rem;
   }
 
@@ -60,7 +63,7 @@ const ContentLayout = styled.div`
   }
 
   .info-list{
-    width: 20%;
+    min-width: 20%;
     height:18rem;
     font-size: 1.5rem;
     display: flex;
@@ -77,6 +80,18 @@ const ContentLayout = styled.div`
 
   .caption-container{
     text-transform:capitalize;
+  }
+
+  @media (max-width: 1000px) {
+    .graph-layout{
+      min-width:100%;
+    }
+  }
+
+  @media (min-width: 1001px) {
+    .graph-layout{
+      width:50%;
+    }
   }
 `;
 

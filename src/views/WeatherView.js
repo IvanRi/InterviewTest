@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useMediaLayout } from 'use-media';
 //get data endpoints
-import { getWeatherData } from '../apiRequest/WeatherData'
+import { getWeatherData } from '../apiRequest/WeatherData';
 //components
 import ContentCard from '../components/common/ContentCard';
 import Dropdown from '../components/common/Dropdown';
 import CurrentWeather from '../components/currentWeather/CurrentWeather';
 import ExtendedForecast from '../components/extendedForecast/ExtendedForecast';
 //utils
-import { formatedTime, formatedHourlyGraphTime } from '../utils/timeHandlers'
+import { formatedTime, formatedHourlyGraphTime } from '../utils/timeHandlers';
 
 const WeatherView = () => {
   const [locationWeather, setLocationWeather] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [cityCoord, setCityCoord] = useState({ lat: -34.639239, lon: -58.504896 })
+  const isWide = useMediaLayout({ minWidth: 1000 });
 
   useEffect(() => {
     _getCurrentWeatherData()
+    console.log("WIDE", isWide)
   }, [cityCoord]);
 
   const _getCurrentWeatherData = async () => {
@@ -112,7 +115,7 @@ const ViewLayout = styled.div`
 
   width:100%;
   max-width:70rem;
-  margin: 1rem 0;
+  margin: 1rem .5rem;
   font-family: 'Roboto', sans-serif;
   color:grey;
 
@@ -137,6 +140,13 @@ const ViewLayout = styled.div`
     .drop-label{
       margin-right:.5rem;
       font-weight:bold;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .header{
+      flex-direction: column;
+      margin-bottom:1rem;
     }
   }
 `;

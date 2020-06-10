@@ -6,6 +6,7 @@ import CercleLoader from './CercleLoader'
 
 const ContentCard = props => {
   const { isLoading } = props
+
   return <ContentLayout {...props}>
     {isLoading && <div className='is-loading'><CercleLoader /></div>}
     {props.children}

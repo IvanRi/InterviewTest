@@ -14,7 +14,7 @@ const ExtendedForecast = props => {
 
 const ContentLayout = styled.div`
   display:flex;
-  flex-wrap:wrap;
+  overflow:auto;
 `;
 
 export default ExtendedForecast;

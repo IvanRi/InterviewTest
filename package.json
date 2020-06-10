@@ -6,7 +6,7 @@
     "node": "13.11.0",
     "npm": "6.13.7"
   },
-  "main": "./public/index.html",
+  "main": "build/index.html",
   "homepage": "https://ivanri.github.io/InterviewTest/",
   "dependencies": {
     "chart.js": "^2.9.3",
